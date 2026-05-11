@@ -97,5 +97,3 @@ This site is fully static, so any of these will work — **all free**:
 ---
 
 **Disclaimer:** All medical content on this website is educational. Diagnosis and treatment require a personal consultation with a qualified physician.
-Last updated: testing git push from VS Code.
-HI

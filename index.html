@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-<link rel="stylesheet" href="assets/css/style.css?v=20260511143106" />
+<link rel="stylesheet" href="assets/css/style.css?v=20260511151356" />
 </head>
 <body>
 <div class="loader" id="pageLoader"><div class="jimu-primary-loading"></div></div>
@@ -327,23 +327,32 @@
           <label class="form-label">Email</label>
           <input class="form-control" type="email" name="email" />
         </div>
+        <div class="form-group">
+          <label class="form-label">Service</label>
+          <select class="form-select" name="service">
+            <option value="">Select service</option>
+            <option>General Andrology Consultation</option>
+            <option>Erectile Dysfunction</option>
+            <option>Male Infertility</option>
+            <option>Hormonal Disorders</option>
+            <option>Sexual Health</option>
+            <option>Prostate Concerns</option>
+            <option>Online Video Consultation</option>
+          </select>
+        </div>
         <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Service</label>
-            <select class="form-select" name="service">
-              <option value="">Select service</option>
-              <option>General Andrology Consultation</option>
-              <option>Erectile Dysfunction</option>
-              <option>Male Infertility</option>
-              <option>Hormonal Disorders</option>
-              <option>Sexual Health</option>
-              <option>Prostate Concerns</option>
-              <option>Online Video Consultation</option>
-            </select>
-          </div>
           <div class="form-group">
             <label class="form-label">Preferred Date *</label>
             <input class="form-control" type="date" name="date" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred Time *</label>
+            <select class="form-select" name="time" required>
+              <option value="">Select time slot</option>
+              <option>9:00 PM – 9:30 PM</option>
+              <option>9:30 PM – 10:00 PM</option>
+              <option>10:00 PM – 10:30 PM</option>
+            </select>
           </div>
         </div>
         <div class="form-group">
@@ -508,6 +517,6 @@
   </div>
 </div>
 
-<script src="assets/js/main.js?v=20260511143106"></script>
+<script src="assets/js/main.js?v=20260511151356"></script>
 </body>
 </html>
