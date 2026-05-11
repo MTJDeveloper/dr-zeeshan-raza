@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Upload Doctor Photos — Dr. Zeeshan Raza website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+  body { background: var(--light); }
+  .upload-wrap { max-width: 1100px; margin: 60px auto; padding: 0 20px; }
+  .upload-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 30px; }
+  @media (max-width: 900px) { .upload-grid { grid-template-columns: 1fr; } }
+  .drop {
+    background: var(--white);
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+  }
+  .drop:hover, .drop.drag-over { border-color: var(--primary); background: var(--primary-light); }
+  .drop.uploaded { border-color: var(--secondary); border-style: solid; background: #f0fdf9; }
+  .drop input[type=file] { display: none; }
+  .drop .target {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 6px 14px;
+    border-radius: 999px;
+    display: inline-block;
+    margin: 0 auto 12px;
+  }
+  .drop h3 { margin-bottom: 4px; font-size: 1.1rem; }
+  .drop .desc { color: var(--gray-500); font-size: 0.88rem; margin-bottom: 14px; }
+  .drop .preview {
+    flex: 1;
+    margin: 12px 0;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--primary-light), var(--light));
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    min-height: 180px;
+  }
+  .drop .preview img { max-width: 100%; max-height: 220px; object-fit: contain; border-radius: 8px; }
+  .drop .preview .placeholder { color: var(--gray-500); font-size: 0.85rem; padding: 30px; }
+  .drop .filename { font-family: 'Poppins', sans-serif; font-weight: 600; color: var(--dark); font-size: 0.85rem; margin-top: 8px; }
+  .drop .status { font-size: 0.85rem; padding: 8px 12px; border-radius: 8px; margin-top: 8px; }
+  .drop .status.ok { background: #d1fae5; color: #047857; }
+  .drop .status.err { background: #fee2e2; color: #b91c1c; }
+  .drop .status.pending { background: #fef3c7; color: #92400e; }
+  .upload-actions { display: flex; gap: 14px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
+  .saved-banner {
+    background: linear-gradient(135deg, var(--secondary), #00a085);
+    color: var(--white);
+    padding: 18px 24px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    margin-top: 24px;
+    display: none;
+  }
+  .saved-banner.show { display: block; }
+  .saved-banner a { color: var(--white); text-decoration: underline; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="upload-wrap">
+  <div class="section-head" style="margin-bottom: 10px;">
+    <span class="eyebrow">Setup Tool</span>
+    <h1>Upload the 3 Doctor Photos</h1>
+    <p>Drag &amp; drop each photo onto its slot below — or click the slot to pick a file. Files are saved directly to <code>assets/images/</code> with the correct filename.</p>
+  </div>
+
+  <div class="upload-grid" id="grid">
+
+    <div class="drop" data-key="hero">
+      <span class="target">doctor-hero.png</span>
+      <h3>Hero Photo</h3>
+      <p class="desc">Used on the home-page hero (right side).<br /><strong>Recommended:</strong> the white-coat / clinic photo.</p>
+      <div class="preview"><span class="placeholder"><i class="fa-solid fa-image" style="font-size:2.5rem; color: var(--gray-300);"></i><br />Drop image here</span></div>
+      <div class="filename"></div>
+      <div class="status"></div>
+      <input type="file" accept="image/*" />
+    </div>
+
+    <div class="drop" data-key="about">
+      <span class="target">doctor-about.png</span>
+      <h3>About Preview Photo</h3>
+      <p class="desc">Used in the home-page About section.<br /><strong>Recommended:</strong> the light-blue shirt portrait.</p>
+      <div class="preview"><span class="placeholder"><i class="fa-solid fa-image" style="font-size:2.5rem; color: var(--gray-300);"></i><br />Drop image here</span></div>
+      <div class="filename"></div>
+      <div class="status"></div>
+      <input type="file" accept="image/*" />
+    </div>
+
+    <div class="drop" data-key="portrait">
+      <span class="target">doctor-portrait.png</span>
+      <h3>About-Page Portrait</h3>
+      <p class="desc">Used on the dedicated About page.<br /><strong>Recommended:</strong> the navy-shirt sitting portrait.</p>
+      <div class="preview"><span class="placeholder"><i class="fa-solid fa-image" style="font-size:2.5rem; color: var(--gray-300);"></i><br />Drop image here</span></div>
+      <div class="filename"></div>
+      <div class="status"></div>
+      <input type="file" accept="image/*" />
+    </div>
+
+  </div>
+
+  <div class="upload-actions">
+    <button id="uploadAll" class="btn btn-primary btn-lg"><i class="fa-solid fa-cloud-arrow-up"></i> Save All to Server</button>
+    <a href="/" class="btn btn-outline btn-lg">View Home Page</a>
+  </div>
+
+  <div class="saved-banner" id="savedBanner">
+    All photos saved! <a href="/?cb=1" id="viewSiteLink">Open the home page</a> to see them live.
+  </div>
+</div>
+
+<script>
+const targetMap = {
+  hero: 'doctor-hero.png',
+  about: 'doctor-about.png',
+  portrait: 'doctor-portrait.png',
+};
+
+document.querySelectorAll('.drop').forEach(drop => {
+  const input = drop.querySelector('input[type=file]');
+  const preview = drop.querySelector('.preview');
+  const filename = drop.querySelector('.filename');
+  const status = drop.querySelector('.status');
+  const key = drop.dataset.key;
+
+  function loadFile(file) {
+    if (!file || !file.type.startsWith('image/')) {
+      status.textContent = 'Please drop an image file.';
+      status.className = 'status err';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      preview.innerHTML = `<img src="${reader.result}" alt="" />`;
+      filename.textContent = `${file.name} → ${targetMap[key]} (${(file.size/1024).toFixed(0)} KB)`;
+      status.textContent = 'Ready to upload';
+      status.className = 'status pending';
+      drop._dataUrl = reader.result;
+      drop._origName = file.name;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  drop.addEventListener('click', (e) => {
+    if (e.target.tagName === 'INPUT') return;
+    input.click();
+  });
+  input.addEventListener('change', () => loadFile(input.files[0]));
+  drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('drag-over'); });
+  drop.addEventListener('dragleave', () => drop.classList.remove('drag-over'));
+  drop.addEventListener('drop', (e) => {
+    e.preventDefault();
+    drop.classList.remove('drag-over');
+    if (e.dataTransfer.files.length) loadFile(e.dataTransfer.files[0]);
+  });
+});
+
+document.getElementById('uploadAll').addEventListener('click', async () => {
+  const drops = document.querySelectorAll('.drop');
+  const tasks = [];
+  drops.forEach(drop => {
+    if (!drop._dataUrl) return;
+    const status = drop.querySelector('.status');
+    const filename = targetMap[drop.dataset.key];
+    const data = drop._dataUrl.split(',')[1];
+    status.textContent = 'Uploading…';
+    status.className = 'status pending';
+    tasks.push(
+      fetch('/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename, data })
+      }).then(r => r.json()).then(j => {
+        if (j.ok) {
+          status.textContent = `Saved as ${j.filename} (${(j.bytes/1024).toFixed(0)} KB)`;
+          status.className = 'status ok';
+          drop.classList.add('uploaded');
+        } else {
+          status.textContent = 'Upload failed: ' + (j.error || 'unknown');
+          status.className = 'status err';
+        }
+      }).catch(err => {
+        status.textContent = 'Network error: ' + err.message;
+        status.className = 'status err';
+      })
+    );
+  });
+  if (tasks.length === 0) {
+    alert('Drop at least one photo before clicking Save.');
+    return;
+  }
+  await Promise.all(tasks);
+  document.getElementById('savedBanner').classList.add('show');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Deploying Dr. Zeeshan Raza Website — Step-by-Step Guide</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: #1a2540;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    background: #fff;
+  }
+
+  .cover {
+    background: linear-gradient(135deg, #1A76D1 0%, #0F2B5B 100%);
+    color: #fff;
+    padding: 60px 50px;
+    margin: 0 -14mm 24px -14mm;
+    page-break-after: avoid;
+    border-radius: 0 0 30px 30px;
+  }
+  .cover .eyebrow {
+    display: inline-block;
+    font-size: 9pt;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.18);
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .cover h1 {
+    font-size: 26pt;
+    margin: 0 0 8px;
+    line-height: 1.15;
+    font-weight: 800;
+  }
+  .cover .sub {
+    font-size: 12pt;
+    opacity: 0.92;
+    margin-bottom: 22px;
+  }
+  .cover .meta {
+    font-size: 9.5pt;
+    opacity: 0.85;
+    border-top: 1px solid rgba(255,255,255,0.25);
+    padding-top: 14px;
+  }
+  .cover .meta strong { color: #00ffd1; font-weight: 600; }
+
+  h2 {
+    color: #0F2B5B;
+    font-size: 16pt;
+    margin: 28px 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #1A76D1;
+    page-break-after: avoid;
+  }
+  h3 {
+    color: #1A76D1;
+    font-size: 12pt;
+    margin: 22px 0 8px;
+    page-break-after: avoid;
+  }
+  h4 {
+    color: #0F2B5B;
+    font-size: 11pt;
+    margin: 16px 0 6px;
+  }
+  p { margin: 6px 0 10px; }
+
+  .card {
+    background: #f4f9ff;
+    border: 1px solid #d8e8f7;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 12px 0 16px;
+  }
+  .card.success { background: #f0fdf9; border-color: #b6e9d6; }
+  .card.warn    { background: #fff8e6; border-color: #f1d28e; }
+  .card.tip     { background: #fef0fb; border-color: #f1c5e3; }
+  .card strong { color: #0F2B5B; }
+
+  ol, ul { padding-left: 22px; margin: 6px 0 10px; }
+  li { margin: 4px 0; }
+
+  code, pre {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 9.5pt;
+  }
+  code {
+    background: #eef3f9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: #0F2B5B;
+  }
+  pre {
+    background: #0F2B5B;
+    color: #e8f2fc;
+    padding: 12px 16px;
+    border-radius: 8px;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 8px 0 14px;
+    font-size: 9pt;
+    line-height: 1.55;
+  }
+  pre code { background: transparent; color: inherit; padding: 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 14px;
+    font-size: 9.8pt;
+  }
+  th, td {
+    border: 1px solid #d8e8f7;
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #1A76D1;
+    color: #fff;
+    font-weight: 600;
+  }
+  tr:nth-child(even) td { background: #f9fbfe; }
+
+  .step {
+    border-left: 4px solid #1A76D1;
+    padding: 10px 16px 10px 18px;
+    background: #f9fbfe;
+    margin: 12px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .step .num {
+    display: inline-block;
+    background: #1A76D1;
+    color: #fff;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 22px;
+    font-size: 9pt;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+
+  .path-tag {
+    display: inline-block;
+    background: #00C9A7;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 9pt;
+    font-weight: 600;
+    margin-right: 8px;
+  }
+  .path-tag.recommended { background: #F59E0B; }
+  .path-tag.fastest     { background: #10B981; }
+
+  .keep-together { page-break-inside: avoid; }
+  .new-page { page-break-before: always; }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed #d8e8f7;
+    margin: 18px 0;
+  }
+
+  .checklist {
+    list-style: none;
+    padding-left: 0;
+  }
+  .checklist li {
+    padding-left: 24px;
+    position: relative;
+    margin: 5px 0;
+  }
+  .checklist li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #10B981;
+    font-weight: 700;
+  }
+
+  .small { font-size: 9pt; color: #4b5563; }
+
+  .url-pill {
+    display: inline-block;
+    background: #eef3f9;
+    color: #0F2B5B;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-family: Consolas, monospace;
+    font-size: 9.5pt;
+  }
+
+  .footer-note {
+    margin-top: 30px;
+    padding-top: 14px;
+    border-top: 1px solid #d8e8f7;
+    color: #6b7280;
+    font-size: 9pt;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <span class="eyebrow">Deployment Guide</span>
+  <h1>Publishing Dr. Zeeshan Raza's Website Online</h1>
+  <p class="sub">Three step-by-step paths to make the site publicly accessible — so you can share a live link with the doctor.</p>
+  <div class="meta">
+    <strong>Project:</strong> Dr. Muhammad Zeeshan Ahmed Raza — Andrologist, Cavalry Hospital, Lahore<br />
+    <strong>Source folder:</strong> C:\Users\hp\Desktop\dr-zeeshan-website\<br />
+    <strong>Document version:</strong> v1.0
+  </div>
+</div>
+
+<h2>Quick Recommendation</h2>
+<p>For a static HTML site like this one, your three options are:</p>
+
+<table>
+  <thead>
+    <tr><th style="width:18%">Path</th><th style="width:22%">Platform</th><th style="width:25%">Time</th><th>Best for</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="path-tag fastest">FASTEST</span></td>
+      <td><strong>Netlify Drop</strong></td>
+      <td>30 seconds — no install, no signup</td>
+      <td>Quickly sending the doctor a link to review</td>
+    </tr>
+    <tr>
+      <td><span class="path-tag recommended">VERCEL</span></td>
+      <td><strong>Vercel CLI</strong></td>
+      <td>~10 minutes (first time) — needs Node.js</td>
+      <td>Long-term hosting + clean redeployments</td>
+    </tr>
+    <tr>
+      <td><span class="path-tag">DASHBOARD</span></td>
+      <td><strong>Vercel + GitHub</strong></td>
+      <td>~20 minutes — needs GitHub account</td>
+      <td>Auto-deploy on every code change</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="card tip">
+<strong>Suggested workflow:</strong> Use <em>Netlify Drop (Path C)</em> right now to send the doctor a preview link for feedback. Once approved, set up <em>Vercel CLI (Path A)</em> for ongoing professional hosting and updates.
+</div>
+
+<h2 class="new-page">Path A — Vercel CLI (recommended for Vercel)</h2>
+
+<h3>Step 1 — Install Node.js (5 minutes, one-time)</h3>
+<p>Vercel's CLI runs on Node.js. This needs to be installed once on your machine.</p>
+<div class="step">
+  <span class="num">1</span> Open <a href="https://nodejs.org">https://nodejs.org</a> in your browser<br />
+  <span class="num">2</span> Click the green <strong>"LTS"</strong> button (currently Node 22)<br />
+  <span class="num">3</span> Run the installer — accept all defaults<br />
+  <span class="num">4</span> Close and reopen PowerShell after installation completes
+</div>
+<p><strong>Verify it worked</strong> by running these in PowerShell:</p>
+<pre>node --version
+npm --version</pre>
+<p>Both should print version numbers. If either says "not recognized", restart your computer and try again.</p>
+
+<h3>Step 2 — Clean up local-only files (optional)</h3>
+<p>Two files (<code>serve.py</code> and <code>upload.html</code>) were created for local development only — for uploading the doctor's photos via the browser. They aren't needed online. Remove them before deploy:</p>
+<pre>cd C:\Users\hp\Desktop\dr-zeeshan-website
+Remove-Item serve.py
+Remove-Item upload.html</pre>
+<p class="small">If you skip this, Vercel will simply serve them as harmless static files. They won't break anything.</p>
+
+<h3>Step 3 — Install Vercel CLI (1 minute, one-time)</h3>
+<pre>npm install -g vercel</pre>
+
+<h3>Step 4 — Deploy</h3>
+<pre>cd C:\Users\hp\Desktop\dr-zeeshan-website
+vercel</pre>
+<p>Vercel will ask 5 quick questions in the terminal:</p>
+
+<table>
+  <thead><tr><th style="width:55%">Prompt</th><th>Answer</th></tr></thead>
+  <tbody>
+    <tr><td>Set up and deploy "…dr-zeeshan-website"?</td><td><strong>Y</strong></td></tr>
+    <tr><td>Which scope do you want to deploy to?</td><td>(Select your username — only option visible)</td></tr>
+    <tr><td>Link to existing project?</td><td><strong>N</strong></td></tr>
+    <tr><td>Project name?</td><td><strong>dr-zeeshan-raza</strong> &nbsp;<span class="small">(this becomes the URL)</span></td></tr>
+    <tr><td>In which directory is your code located?</td><td>Just press <strong>Enter</strong> (default <code>./</code>)</td></tr>
+  </tbody>
+</table>
+
+<div class="card warn">
+<strong>First-time only:</strong> Vercel opens your browser to log in. Sign up with email or GitHub — it's free and takes 30 seconds. Return to PowerShell after.
+</div>
+
+<p>When deployment finishes, you get a preview URL like:</p>
+<p><span class="url-pill">https://dr-zeeshan-raza-abc123.vercel.app</span></p>
+
+<h3>Step 5 — Promote to production URL</h3>
+<pre>vercel --prod</pre>
+
+<p>You now get the clean public URL:</p>
+<p><span class="url-pill">https://dr-zeeshan-raza.vercel.app</span></p>
+
+<div class="card success">
+<strong>This is the link you share with the doctor.</strong> It's permanent, free, and works on any device.
+</div>
+
+<h3>Step 6 — Updates in the future</h3>
+<p>Whenever you make changes (new photo, edited text, new section), run this from the project folder:</p>
+<pre>vercel --prod</pre>
+<p>The new version goes live in about 30 seconds.</p>
+
+<h2 class="new-page">Path B — Vercel via GitHub (no command line)</h2>
+<p>If you prefer the Vercel website over the command line, this path uses GitHub as the bridge. The advantage is auto-deploy: every code change you push triggers a new live deployment automatically.</p>
+
+<div class="step">
+  <span class="num">1</span> Sign up at <a href="https://github.com">github.com</a> (free)
+</div>
+<div class="step">
+  <span class="num">2</span> Click <strong>"New repository"</strong> → name it <code>dr-zeeshan-raza</code> → set to <strong>Public</strong> → Create
+</div>
+<div class="step">
+  <span class="num">3</span> On the repo page, click the link <strong>"uploading an existing file"</strong> → drag the entire contents of the <code>dr-zeeshan-website</code> folder onto the page → scroll down → <strong>Commit changes</strong>
+</div>
+<div class="step">
+  <span class="num">4</span> Sign up at <a href="https://vercel.com">vercel.com</a> (free) — sign in with GitHub for one-click linking
+</div>
+<div class="step">
+  <span class="num">5</span> Click <strong>"Add New Project"</strong> → select your <code>dr-zeeshan-raza</code> repo from the list → <strong>Deploy</strong>
+</div>
+<div class="step">
+  <span class="num">6</span> Wait ~60 seconds → you get the same kind of <code>*.vercel.app</code> URL
+</div>
+
+<div class="card tip">
+<strong>Bonus:</strong> Every future change you commit to GitHub auto-deploys to Vercel within seconds. Great for collaboration.
+</div>
+
+<h2 class="new-page">Path C — Netlify Drop (30 seconds, no install)</h2>
+<p>By far the fastest way to put this site online. No account needed for the initial deploy.</p>
+
+<div class="step">
+  <span class="num">1</span> Open <a href="https://app.netlify.com/drop">https://app.netlify.com/drop</a> in your browser
+</div>
+<div class="step">
+  <span class="num">2</span> In File Explorer, navigate to <code>C:\Users\hp\Desktop\</code>
+</div>
+<div class="step">
+  <span class="num">3</span> Drag the entire <strong>dr-zeeshan-website</strong> folder onto the Netlify Drop page
+</div>
+<div class="step">
+  <span class="num">4</span> Wait 15–20 seconds while it uploads and builds
+</div>
+<div class="step">
+  <span class="num">5</span> Done — you get a URL like <span class="url-pill">https://random-name-12345.netlify.app</span>
+</div>
+
+<div class="card success">
+This is the link you can immediately share with the doctor. If you'd like to <strong>rename the URL</strong> (e.g., <code>drzeeshanraza.netlify.app</code>) or be able to <strong>update it later</strong>, sign up to Netlify after — it'll let you claim the deploy you just dropped.
+</div>
+
+<h2 class="new-page">What "Just Works" on All Three Platforms</h2>
+<ul class="checklist">
+  <li>Doctor photos already in <code>assets/images/</code> (3 PNGs uploaded)</li>
+  <li>Intro video <code>intro.mp4</code> (14 MB) — well under platform limits</li>
+  <li>WhatsApp form submission — pure client-side JavaScript, works on any host</li>
+  <li>Google Map iframe — needs HTTPS, which all three platforms provide automatically</li>
+  <li>Responsive layout, hover effects, video lightbox, contact card animations</li>
+  <li>YouTube channel showcase + Success Story video card</li>
+  <li>Mobile-responsive at 992px and 768px breakpoints</li>
+</ul>
+
+<h2>Custom Domain (Optional, Later)</h2>
+<p>Once your site is live on Vercel or Netlify, you can attach a real domain like <strong>drzeeshanraza.com</strong>:</p>
+<ol>
+  <li>Buy a domain from a registrar (Namecheap or GoDaddy, ~Rs. 3,000/year for <code>.com</code>)</li>
+  <li>In Vercel/Netlify dashboard → <strong>Domains</strong> → <strong>Add domain</strong> → enter your domain</li>
+  <li>Follow the DNS instructions on screen (usually copy 2 records into your registrar)</li>
+  <li>Wait 5–60 minutes — your site is live on the custom domain with free HTTPS</li>
+</ol>
+
+<h2>Troubleshooting</h2>
+
+<h3>"node is not recognized" after installing Node.js</h3>
+<p>Restart your computer. Windows needs to refresh the PATH variable.</p>
+
+<h3>Vercel command asks for a different framework</h3>
+<p>If asked, choose <strong>"Other"</strong> — this site has no framework, it's plain HTML/CSS/JS.</p>
+
+<h3>The intro video doesn't autoplay on the live site</h3>
+<p>That's a browser policy, not a deployment issue. The preview will autoplay muted; sound only plays after a click. This is the same on every modern browser.</p>
+
+<h3>Map iframe shows "refused to connect" locally but not on the live site</h3>
+<p>Some browsers block iframes on <code>file://</code> or <code>http://</code>. Live deployments are HTTPS, so the map works fine there — no action needed.</p>
+
+<h3>I want to undo a deploy</h3>
+<p><strong>Vercel:</strong> Dashboard → project → Deployments → click any older deployment → <strong>Promote to Production</strong>. Instant rollback.<br />
+<strong>Netlify:</strong> Same process — Deploys tab → <strong>Publish</strong> on any older deployment.</p>
+
+<h2>Quick Command Reference</h2>
+<pre># --- Vercel CLI ---
+npm install -g vercel              # one-time install
+vercel                             # first deploy (preview URL)
+vercel --prod                      # promote to production URL
+vercel ls                          # list your projects
+vercel rm dr-zeeshan-raza          # delete a project
+
+# --- Local development ---
+cd C:\Users\hp\Desktop\dr-zeeshan-website
+python serve.py                    # local server with photo upload at :8080</pre>
+
+<div class="footer-note">
+Generated for Dr. Muhammad Zeeshan Ahmed Raza website project — keep this PDF for future deployments.
+</div>
+
+</body>
+</html>
