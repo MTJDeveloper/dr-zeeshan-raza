@@ -342,7 +342,7 @@ img { max-width: 100%; display: block; }
 }
 .hero-card strong { display: block; color: var(--dark); font-family: 'Poppins', sans-serif; font-size: 0.95rem; }
 .hero-card small { color: var(--gray-500); font-size: 0.78rem; }
-.hero-card.card-1 { top: 14%; left: 4%; }
+.hero-card.card-1 { top: 9%; left: -2%; }
 .hero-card.card-2 { bottom: 12%; right: 4%; }
 
 /* Page banner */
